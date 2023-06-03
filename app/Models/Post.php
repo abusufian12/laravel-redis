@@ -14,22 +14,22 @@ class Post extends Model
 
     protected $redis;
 
-    public function __construct(){
-        $this->redis = Redis::connection();
-    }
+    // public function __construct(){
+    //     $this->redis = Redis::connection();
+    // }
 
     protected $fillable = [
         'title', 'description', 'is_published', 'image_path', 'excerpt'
     ];
 
 
-    public function getDataFromMySQL($id)
-    {
-        return $this->find($id);
-    }
+    // public function getDataFromMySQL($id)
+    // {
+    //     return $this->find($id);
+    // }
 
-    public function getValueFromRedis($key)
-    {
-        return $this->redis->get($key);
-    }
+    // public function getValueFromRedis($key)
+    // {
+    //     return $this->redis->get($key);
+    // }
 }

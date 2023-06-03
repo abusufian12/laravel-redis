@@ -25,3 +25,6 @@ Route::get('/redis', [RedisController::class, 'index']);
 // post routes
 // Route::get('/posts', [PostController::class, 'index']);
 Route::resource('posts', PostController::class);
+
+// book routes
+Route::resource('books', BookController::class);

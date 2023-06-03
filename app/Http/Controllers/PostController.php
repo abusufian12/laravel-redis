@@ -18,8 +18,6 @@ class PostController extends Controller
 
         $posts = Post::get();
 
-        Redis::set('all_post', $posts);
-
         $all_post = json_decode(Redis::get('all_post'), true);
 
         if (!empty($all_post)) {
@@ -41,8 +39,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         return view('posts.create');
     }
 
@@ -58,9 +55,12 @@ class PostController extends Controller
             'title' => 'required',
             'description' => 'required',
         ]);
-    
+        
         Post::create($request->all());
-     
+        
+        $posts = Post::get();
+        Redis::set('all_post', $posts);
+
         return redirect()->route('posts.index')
                         ->with('success','Post created successfully.');
     }
@@ -73,8 +73,6 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        // echo '<pre>';
-        // print_r($post);die;
         return view('posts.show',compact('post'));
     }
 
@@ -104,7 +102,10 @@ class PostController extends Controller
         ]);
     
         $post->update($request->all());
-    
+        
+        $posts = Post::get();
+        Redis::set('all_post', $posts);
+
         return redirect()->route('posts.index')
                         ->with('success','Post updated successfully');
     }
@@ -118,7 +119,10 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-    
+        
+        $posts = Post::get();
+        Redis::set('all_post', $posts);
+        
         return redirect()->route('posts.index')
                         ->with('success','Post deleted successfully');
     }
