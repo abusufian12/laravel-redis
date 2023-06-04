@@ -21,6 +21,11 @@ php artisan make:listener BookCreatedListener --event=BookCreated
 
 ## Description
 
+##config/database.php
+'redis' => [
+
+        'client' => env('REDIS_CLIENT', 'predis'),
+
 There have redis implement two way.
 
 first way using Post module. redis implement on post controller.
